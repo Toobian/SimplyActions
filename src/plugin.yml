@@ -1,0 +1,94 @@
+name: SimplyActions
+main: fr.toobian.bukkit.simplyactions.SimplyActions
+author: Toobian
+version: 1.0.0
+commands:
+  tp:
+    description: Command to teleport someone.
+    usage: |
+        /<command> <player> - Teleport you to <player>.
+        /<command> <x> <y> <z> - Teleport you to coordinates X Y Z.
+        /<command> <player1> <player2> - Teleport <player1> to <player2>.
+        /<command> <player> <x> <y> <z> - Teleport <player> to coordinates X Y Z.
+  tphere:
+    description: Command to teleport someone to you.
+    usage: |
+        /<command> <player> - Teleport <player> to you.
+  back:
+    description: Command to teleport someone to your previous location.
+    usage: |
+        /<command> - Teleport you to your previous location.
+  spawn:
+    description: Command to teleport you to spawn location.
+    usage: |
+        /<command> - Teleport you to spawn location of current world.
+  setspawn:
+    description: Command to set spawn location.
+    usage: |
+        /<command> - Teleport you to spawn location of current world.
+  kick:
+    description: Kick player in parameter.
+    usage: |
+        /<command> <player> - Kick <player>.
+  ban:
+    description: Ban player in parameter.
+    usage: |
+        /<command> <player> - Ban <player>.
+  unban:
+    description: Unban player in parameter.
+    usage: |
+        /<command> <player> - Unban <player>.
+  kill:
+    description: Kill player in parameter.
+    usage: |
+        /<command> <player> - Kill <player>.
+  broadcast:
+    description: Send message to all online players.
+    usage: |
+        /<command> <message> - Send message to all online players.
+permissions:
+  simplyactions.communication.*:
+    default: op
+    description: Allow use all communication commands.
+    children:
+      simplyactions.communication.broadcast: true
+  simplyactions.communication.broadcast:
+    description: Allow use broadcast command.
+
+  simplyactions.sentence.*:
+    default: op
+    description: Allow use all sentence commands.
+    children:
+      simplyactions.sentence.kick: true
+      simplyactions.sentence.ban: true
+      simplyactions.sentence.unban: true
+      simplyactions.sentence.kill: true
+  simplyactions.sentence.kick:
+    description: Allow use kick command.
+  simplyactions.sentence.ban:
+    description: Allow use ban command.
+  simplyactions.sentence.unban:
+    description: Allow use unban command.
+  simplyactions.sentence.kill:
+    description: Allow use kill command.
+
+  simplyactions.teleportation.*:
+    default: op
+    description: Allow use all teleportation commands.
+    children:
+      simplyactions.teleportation.tp: true
+      simplyactions.teleportation.tphere: true
+      simplyactions.teleportation.back: true
+      simplyactions.teleportation.spawn: true
+      simplyactions.teleportation.setspawn: true
+  simplyactions.teleportation.tp:
+    description: Allow use tp command.
+  simplyactions.teleportation.tphere:
+    description: Allow use tphere command.
+  simplyactions.teleportation.back:
+    description: Allow use back command.
+  simplyactions.teleportation.spawn:
+    default: true
+    description: Allow use spawn command.
+  simplyactions.teleportation.setspawn:
+    description: Allow use setspawn command.

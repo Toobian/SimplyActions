@@ -1,0 +1,15 @@
+communication:
+  enabled: true
+  broadcast.suffix: '[Broadcast] '
+  
+sentence:
+  enabled: true
+  ban.msg: 'You are ban for:%r'
+  ban.broadcast: '%p has been banned for:%r'
+  kick.msg: '%r'
+  kick.broadcast: '%p has been kicked for:%r'
+  
+
+teleportation:
+  enabled: true
+  effects: true
