@@ -14,6 +14,10 @@ commands:
     description: Command to teleport someone to you.
     usage: |
         /<command> <player> - Teleport <player> to you.
+  tptoggle:
+    description: Disable/enable your location for tp.
+    usage: |
+        /<command> - Disable/enable your location for tp.
   back:
     description: Command to teleport someone to your previous location.
     usage: |
@@ -34,6 +38,11 @@ commands:
     description: Ban player in parameter.
     usage: |
         /<command> <player> - Ban <player>.
+  tempban:
+    aliases: [ tban ]
+    description: Temporary ban player in parameter.
+    usage: |
+        /<command> <player> <duration> - Ban <player> for <duration>. <duration> is something like 12d6h58m45s.
   unban:
     description: Unban player in parameter.
     usage: |
@@ -46,6 +55,18 @@ commands:
     description: Send message to all online players.
     usage: |
         /<command> <message> - Send message to all online players.
+  sun:
+    description: Set weather to sun.
+    usage: |
+        /<command> [world] ...
+  storm:
+    description: Set weather to storm.
+    usage: |
+        /<command> [world] ...
+  thunder:
+    description: Set weather to thundering.
+    usage: |
+        /<command> [world] ...
 permissions:
   simplyactions.communication.*:
     default: op
@@ -67,6 +88,8 @@ permissions:
     description: Allow use kick command.
   simplyactions.sentence.ban:
     description: Allow use ban command.
+  simplyactions.sentence.tempban:
+    description: Allow use tempban command.
   simplyactions.sentence.unban:
     description: Allow use unban command.
   simplyactions.sentence.kill:
@@ -92,3 +115,7 @@ permissions:
     description: Allow use spawn command.
   simplyactions.teleportation.setspawn:
     description: Allow use setspawn command.
+
+  simplyactions.weather:
+    default: op
+    description: Allow use all weather commands.

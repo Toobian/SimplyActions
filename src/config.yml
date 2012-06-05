@@ -13,3 +13,6 @@ sentence:
 teleportation:
   enabled: true
   effects: true
+  
+weather:
+  enabled: true
