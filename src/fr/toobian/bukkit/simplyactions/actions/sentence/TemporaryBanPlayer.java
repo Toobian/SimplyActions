@@ -1,5 +1,6 @@
 package fr.toobian.bukkit.simplyactions.actions.sentence;
 
+import java.util.Calendar;
 import java.util.logging.Level;
 
 import org.bukkit.ChatColor;
@@ -11,10 +12,11 @@ import fr.toobian.bukkit.simplyactions.actions.Action;
 import fr.toobian.bukkit.simplyactions.actions.Effects;
 import fr.toobian.bukkit.simplyactions.io.Store;
 
-public class BanPlayer extends Action {
+public class TemporaryBanPlayer extends Action {
 
-	public BanPlayer(SimplyActions plugin) {
+	public TemporaryBanPlayer(SimplyActions plugin) {
 		super(plugin);
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -25,17 +27,49 @@ public class BanPlayer extends Action {
 				return true;
 		}
 		
-		if(args.length >= 1) {
+		if(args.length >= 2) {
 			Player player = plugin.getServer().getPlayer(args[0]);
 			if(player == null || !player.isOnline()) {
 				sender.sendMessage(ChatColor.RED + "Player not found");
 				return false;
 			}
+			
+			//Duration
+			String duration = args[1];
+			if(!duration.matches("(\\d+d)?(\\d+h)?(\\d+m)?(\\d+s)?"))
+				return false;
+			int days = 0, hours = 0, minutes = 0, seconds = 0;
+			int idays = duration.indexOf("d"), ihours = duration.indexOf("h"), iminutes = duration.indexOf("m"), iseconds = duration.indexOf("s");
+			if(idays > -1) {
+				days = Integer.parseInt(duration.substring(0, idays));
+				idays++;
+			} else
+				idays = 0;
+			if(ihours > -1) {
+				hours = Integer.parseInt(duration.substring(idays, ihours));
+				ihours++;
+			} else
+				ihours = 0;
+			if(iminutes > -1) {
+				minutes = Integer.parseInt(duration.substring(ihours, iminutes));
+				iminutes++;
+			} else
+				iminutes = 0;
+			if(iseconds > -1)
+				seconds = Integer.parseInt(duration.substring(iminutes, iseconds));
+			
+			Calendar end = Calendar.getInstance();
+			end.add(Calendar.DAY_OF_YEAR, days);
+			end.add(Calendar.HOUR, hours);
+			end.add(Calendar.MINUTE, minutes);
+			end.add(Calendar.SECOND, seconds);
+			
+			long theEnd = end.getTimeInMillis();
 
 			String reason = "";
-			if(args.length > 1) {
-				reason = args[1];
-				for(int i=2; i<args.length; i++) {
+			if(args.length > 2) {
+				reason = args[2];
+				for(int i=3; i<args.length; i++) {
 					reason+= " " + args[i];
 				}
 			}
@@ -55,7 +89,7 @@ public class BanPlayer extends Action {
 				broadcast = message.replaceAll("%p", player.getName()).replace("%r", reason);
 			
 			Store store = new Store(plugin, player);
-			store.set("sentence.banEnd", 0);
+			store.set("sentence.banEnd", theEnd);
 			store.set("sentence.banReason", reason);
 			
 			player.setBanned(true);

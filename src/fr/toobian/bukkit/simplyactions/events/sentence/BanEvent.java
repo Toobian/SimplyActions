@@ -1,5 +1,7 @@
 package fr.toobian.bukkit.simplyactions.events.sentence;
 
+import java.util.Date;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,10 +21,17 @@ public class BanEvent implements Listener {
 	@EventHandler
 	public void onPlayerLogin(PlayerLoginEvent event) {
 		Player player = event.getPlayer();
+		Store store = new Store(plugin, player);
+		long end = store.getLong("sentence.banEnd");
+		if(end > 0) {
+			Date theEnd = new Date(store.getLong("sentence.banEnd"));
+			if(theEnd.before(new Date()))
+				player.setBanned(false);
+		}
+		
 		if(player.isBanned()) {
 			String reason = "";
 			
-			Store store = new Store(plugin, player);
 			reason = store.getString("sentence.banReason");
 			
 			event.setKickMessage(reason);

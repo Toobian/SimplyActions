@@ -13,6 +13,7 @@ import fr.toobian.bukkit.simplyactions.actions.Action;
 import fr.toobian.bukkit.simplyactions.actions.sentence.BanPlayer;
 import fr.toobian.bukkit.simplyactions.actions.sentence.KickPlayer;
 import fr.toobian.bukkit.simplyactions.actions.sentence.KillPlayer;
+import fr.toobian.bukkit.simplyactions.actions.sentence.TemporaryBanPlayer;
 import fr.toobian.bukkit.simplyactions.actions.sentence.UnbanPlayer;
 import fr.toobian.bukkit.simplyactions.events.sentence.BanEvent;
 import fr.toobian.bukkit.simplyactions.events.sentence.KickEvent;
@@ -23,7 +24,7 @@ import fr.toobian.bukkit.simplyactions.events.sentence.KickEvent;
  */
 public class Sentence implements CommandExecutor {
 	
-	private Action kickAction, banAction, unbanAction, killAction;
+	private Action kickAction, banAction, tempban, unbanAction, killAction;
 
 	public Sentence(SimplyActions plugin) {
 		
@@ -33,11 +34,13 @@ public class Sentence implements CommandExecutor {
 		
 		this.kickAction = new KickPlayer(plugin);
 		this.banAction = new BanPlayer(plugin);
+		this.tempban = new TemporaryBanPlayer(plugin);
 		this.unbanAction = new UnbanPlayer(plugin);
 		this.killAction = new KillPlayer(plugin);
 		
 		plugin.getCommand("kick").setExecutor(this);
 		plugin.getCommand("ban").setExecutor(this);
+		plugin.getCommand("tempban").setExecutor(this);
 		plugin.getCommand("unban").setExecutor(this);
 		plugin.getCommand("kill").setExecutor(this);
 	}
@@ -50,6 +53,8 @@ public class Sentence implements CommandExecutor {
 			return this.kickAction.execute(sender, args);
 		} else if(cmd.getName().equalsIgnoreCase("ban")) {
 			return this.banAction.execute(sender, args);
+		} else if(cmd.getName().equalsIgnoreCase("tempban")) {
+			return this.tempban.execute(sender, args);
 		} else if(cmd.getName().equalsIgnoreCase("unban")) {
 			return this.unbanAction.execute(sender, args);
 		} else if(cmd.getName().equalsIgnoreCase("kill")) {

@@ -22,6 +22,10 @@ public class Effects {
 	public static void BanEffect(final SimplyActions plugin, final Location loc) {
 		if(plugin.config.getBoolean("teleportation.effects", false)) {
 			loc.getWorld().createExplosion(loc, 0F);
+			loc.getWorld().createExplosion(loc, 0F);
+			loc.getWorld().createExplosion(loc, 0F);
+			loc.getWorld().createExplosion(loc, 0F);
+			loc.getWorld().createExplosion(loc, 0F);
 		}
 	}
 
