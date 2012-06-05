@@ -32,7 +32,13 @@ public class PlayerToYou extends Action {
 			sender.sendMessage(ChatColor.RED + "Player not found");
 			return false;
 		}
+		
 		Store store = new Store(plugin, traveler);
+		if(store.getBoolean("teleportation.tptoggle")){
+			sender.sendMessage(ChatColor.RED + "Player location is disabled");
+			return true;
+		}
+		
 		store.set("teleportation.lastlocation", traveler.getLocation());
 		Effects.TeleportationEffect(plugin, traveler.getLocation());
 		traveler.teleport(player);

@@ -54,7 +54,13 @@ public class YouToPlayerOrWorld extends Action {
 			if(destinationPlayer == null || !destinationPlayer.isOnline()) {
 				error = "Player not found";
 			} else {
+				Store destinationStore = new Store(plugin, destinationPlayer);
+				if(destinationStore.getBoolean("teleportation.tptoggle")){
+					sender.sendMessage(ChatColor.RED + "Player location is disabled");
+					return true;
+				}
 				destination = destinationPlayer.getLocation();
+				
 			}
 		}
 		

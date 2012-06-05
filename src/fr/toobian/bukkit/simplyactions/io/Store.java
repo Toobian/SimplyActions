@@ -90,22 +90,24 @@ public class Store{
 	}
 	
 	public Object get(String path) {
-		return file.get(path);
+		return file.get(path, null);
 	}
 	
 	public boolean getBoolean(String path) {
-		return file.getBoolean(path);
+		return file.getBoolean(path, false);
 	}
 	
 	public double getDouble(String path) {
-		return file.getDouble(path);
+		return file.getDouble(path, 0);
 	}
 
 	public int getInt(String path) {
-		return file.getInt(path);
+		return file.getInt(path, 0);
 	}
 	
 	public Location getLocation(String path) {
+		if(!file.isSet(path))
+			return null;
 		World world = plugin.getServer().getWorld(file.getString(path+".world"));
 		double x = file.getDouble(path+".x");
 		double y = file.getDouble(path+".y");
@@ -117,14 +119,14 @@ public class Store{
 	}
 	
 	public long getLong(String path) {
-		return file.getLong(path);
+		return file.getLong(path, 0);
 	}
 	
 	public String getString(String path) {
-		return file.getString(path);
+		return file.getString(path, null);
 	}
 	
 	public Vector getVector(String path) {
-		return file.getVector(path);
+		return file.getVector(path, null);
 	}
 }

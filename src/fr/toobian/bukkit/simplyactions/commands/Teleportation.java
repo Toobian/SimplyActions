@@ -11,6 +11,7 @@ import org.bukkit.plugin.PluginManager;
 
 import fr.toobian.bukkit.simplyactions.SimplyActions;
 import fr.toobian.bukkit.simplyactions.actions.Action;
+import fr.toobian.bukkit.simplyactions.actions.teleportation.ChangeTpAuthorization;
 import fr.toobian.bukkit.simplyactions.actions.teleportation.PlayerToCoordinates;
 import fr.toobian.bukkit.simplyactions.actions.teleportation.PlayerToPlayerOrWorld;
 import fr.toobian.bukkit.simplyactions.actions.teleportation.PlayerToYou;
@@ -27,7 +28,7 @@ import fr.toobian.bukkit.simplyactions.events.teleportation.SpawnEvent;
 public class Teleportation implements CommandExecutor {
 
 	private Map<Integer, Action> tpActions, setspawnAction;
-	private Action tphereActions, backAction, spawnAction;
+	private Action tphereActions, backAction, spawnAction, tptoggleAction;
 
 	public Teleportation(SimplyActions plugin) {
 		
@@ -41,6 +42,7 @@ public class Teleportation implements CommandExecutor {
 		this.tpActions.put(4, new PlayerToCoordinates(plugin));
 
 		this.tphereActions = new PlayerToYou(plugin);
+		this.tptoggleAction = new ChangeTpAuthorization(plugin);
 		this.backAction = new YouToPreviousLocation(plugin);
 		this.spawnAction = new YouToSpawn(plugin);
 		
@@ -52,6 +54,7 @@ public class Teleportation implements CommandExecutor {
 
 		plugin.getCommand("tp").setExecutor(this);
 		plugin.getCommand("tphere").setExecutor(this);
+		plugin.getCommand("tptoggle").setExecutor(this);
 		plugin.getCommand("back").setExecutor(this);
 		plugin.getCommand("spawn").setExecutor(this);
 		plugin.getCommand("setspawn").setExecutor(this);
@@ -71,6 +74,8 @@ public class Teleportation implements CommandExecutor {
 			}
 		} else if(cmd.getName().equalsIgnoreCase("tphere")) {
 			return this.tphereActions.execute(sender, args);
+		} else if(cmd.getName().equalsIgnoreCase("tptoggle")) {
+			return this.tptoggleAction.execute(sender, args);
 		} else if(cmd.getName().equalsIgnoreCase("back")) {
 			return this.backAction.execute(sender, args);
 		} else if(cmd.getName().equalsIgnoreCase("spawn")) {

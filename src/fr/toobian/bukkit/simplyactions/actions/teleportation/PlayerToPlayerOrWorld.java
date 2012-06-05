@@ -31,6 +31,12 @@ public class PlayerToPlayerOrWorld extends Action {
 			return false;
 		}
 		
+		Store store = new Store(plugin, traveler);
+		if(store.getBoolean("teleportation.tptoggle")){
+			sender.sendMessage(ChatColor.RED + "Player location is disabled");
+			return true;
+		}
+		
 		String dest = args[1];
 		Location destination = null;
 		String error = "";
@@ -56,6 +62,11 @@ public class PlayerToPlayerOrWorld extends Action {
 			if(destinationPlayer == null || !destinationPlayer.isOnline()) {
 				error = "Player not found";
 			} else {
+				Store destinationStore = new Store(plugin, destinationPlayer);
+				if(destinationStore.getBoolean("teleportation.tptoggle")){
+					sender.sendMessage(ChatColor.RED + "Player location is disabled");
+					return true;
+				}
 				destination = destinationPlayer.getLocation();
 			}
 		}
@@ -64,7 +75,6 @@ public class PlayerToPlayerOrWorld extends Action {
 			sender.sendMessage(ChatColor.RED + error);
 			return false;
 		} else {
-			Store store = new Store(plugin, traveler);
 			store.set("teleportation.lastlocation", traveler.getLocation());
 			Effects.TeleportationEffect(plugin, traveler.getLocation());
 			traveler.teleport(destination);

@@ -29,13 +29,19 @@ public class PlayerToCoordinates extends Action {
 			sender.sendMessage(ChatColor.RED + "Player not found");
 			return false;
 		}
+		
+		Store store = new Store(plugin, traveler);
+		if(store.getBoolean("teleportation.tptoggle")){
+			sender.sendMessage(ChatColor.RED + "Player location is disabled");
+			return true;
+		}
+		
 		double x,y,z;
 		try {
 			x = Double.parseDouble(args[1]);
 			y = Double.parseDouble(args[2]);
 			z = Double.parseDouble(args[3]);
 			Location destination = new Location(traveler.getWorld(), x, y, z);
-			Store store = new Store(plugin, traveler);
 			store.set("teleportation.lastlocation", traveler.getLocation());
 			Effects.TeleportationEffect(plugin, traveler.getLocation());
 			traveler.teleport(destination);
